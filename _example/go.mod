@@ -1,4 +1,4 @@
-module github.com/visrcm/auth/_example
+module github.com/go-pkgz/auth/_example
 
 replace github.com/go-pkgz/auth => ../
 
