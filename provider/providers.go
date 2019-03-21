@@ -19,14 +19,16 @@ func NewGoogle(p Params) Oauth2Handler {
 		name:        "google",
 		endpoint:    google.Endpoint,
 		redirectURL: p.URL + "/auth/google/callback",
-		scopes:      []string{"https://www.googleapis.com/auth/userinfo.profile"},
-		infoURL:     "https://www.googleapis.com/oauth2/v3/userinfo",
+		scopes: []string{"https://www.googleapis.com/auth/userinfo.profile",
+			"https://www.googleapis.com/auth/userinfo.email"},
+		infoURL: "https://www.googleapis.com/oauth2/v3/userinfo",
 		mapUser: func(data userData, _ []byte) token.User {
 			userInfo := token.User{
 				// encode email with provider name to avoid collision if same id returned by other provider
 				ID:      "google_" + token.HashID(sha1.New(), data.value("sub")),
 				Name:    data.value("name"),
 				Picture: data.value("picture"),
+				Email:   data.value("email"),
 			}
 			if userInfo.Name == "" {
 				userInfo.Name = "noname_" + userInfo.ID[8:12]
