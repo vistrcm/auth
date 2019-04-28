@@ -47,7 +47,7 @@ func (d *DevAuthServer) Run(ctx context.Context) {
 	}
 
 	d.httpServer = &http.Server{
-		Addr: fmt.Sprintf(":%d", devAuthPort),
+		Addr: fmt.Sprintf("127.0.0.1:%d", devAuthPort),
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			d.Logf("[DEBUG] dev oauth request %s %s %+v", r.Method, r.URL, r.Header)
 			switch {
